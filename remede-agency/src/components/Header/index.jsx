@@ -4,9 +4,16 @@ import '../../index.css'
 import argentBankLogo from '../../assets/argentBankLogo.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+
+import { useSelector } from 'react-redux'
+
+import SignIn from './signIn'
+import SignOut from './signOut'
 
 function Header() {
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated)
+
   return (
     <nav className="main-nav">
       <Link to="/" className="main-nav-logo">
@@ -17,13 +24,8 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
-        <Link to="/signin" className="main-nav-item">
-          {/* <i className="fa fa-user-circle"></i> */}
-          <FontAwesomeIcon icon={faCircleUser} />
-          Sign In
-        </Link>
-      </div>
+
+      <div>{!isAuthenticated ? <SignIn /> : <SignOut />}</div>
     </nav>
   )
 }

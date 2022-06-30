@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
-import { store, updateStatus } from './store'
+import { state } from './store'
 
-function CheckDatas() {
+import { useDispatch } from 'react-redux/es/hooks/useDispatch'
+
+function useFetch() {
+  const dispatch = useDispatch()
+
   const url = 'http://localhost:3001/api/v1/user/login'
 
   const [data, setData] = useState({})
@@ -26,8 +30,8 @@ function CheckDatas() {
           body: JSON.stringify({
             // email: 'tony@stark.com',
             // password: 'password123',
-            email: store.email,
-            password: store.password,
+            email: state.user.authentication.email,
+            password: state.user.authentication.password,
           }),
         })
         const data = await response.json()
@@ -45,10 +49,15 @@ function CheckDatas() {
     fetchData()
   }, [url])
 
-  console.log(data)
-  store.dispatch(updateStatus(data.status))
+  // console.log('iciiiiiiiiiiiii')
+  // console.log(state.user.authentication.email)
+  dispatch({
+    type: 'updateStatus',
+    payload: { status: data.status },
+  })
+  // dispatch(updateStatus(data.status))
 
   return { isLoading, data, error }
 }
 
-export default CheckDatas
+export default useFetch

@@ -289,31 +289,3 @@ body, #root {
     width: 200px;
   }
 }
-
-
-
-
-
-
-
-.edit-name-content {
-  margin: auto;
-  max-width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.inputs-section {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.marginSides {
-  margin: 0 10px
-}
-
-.marginBottom {
-  margin-bottom: 10px;
-}
