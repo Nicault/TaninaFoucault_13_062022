@@ -289,3 +289,58 @@ body, #root {
     width: 200px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.inputs-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.button{
+  display: block;
+  width: 150px;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+}
+.margin{
+  margin: 10px;
+}
+
+@media (max-width: 720px) {
+  .inputs-section{
+    flex-direction: column;
+  }
+  .button{
+    width: 100%;
+  }
+  .input-wrapper2{
+    width: 100%;
+  }
+}
+
+.wrapper{
+  width: 80%;
+  margin: auto;
+}
+.edit-name-content{
+  padding : 0 24px
+}

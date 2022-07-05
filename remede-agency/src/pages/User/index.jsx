@@ -1,6 +1,5 @@
+import UserHeader from '../../components/user/UserHeader'
 import BankSection from '../../components/user/BankSection'
-// import EditUserName from '../../components/user/EditUserName'
-// import TransactionsList from '../../components/user/TransactionsList'
 
 function User() {
   const bloc_list = [
@@ -23,21 +22,11 @@ function User() {
 
   return (
     <main className="main bg-dark">
-      <div className="header">
-        <h1>
-          Welcome back
-          <br />
-          Tony Jarvis!
-        </h1>
-        <button className="edit-button">Edit Name</button>
-        {/* <EditUserName /> */}
-      </div>
+      <UserHeader />
       <h2 className="sr-only">Accounts</h2>
       {bloc_list.map((element) => (
         <BankSection key={`${element.title}-${element.amount}`} {...element} />
       ))}
-
-      {/* <TransactionsList /> */}
     </main>
   )
 }

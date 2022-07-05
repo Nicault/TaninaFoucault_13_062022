@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom'
 import '../../index.css'
 import argentBankLogo from '../../assets/argentBankLogo.png'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-
 import { useSelector } from 'react-redux'
 
 import SignIn from './signIn'
 import SignOut from './signOut'
 
 function Header() {
+  //@ts-ignore
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated)
 
   return (

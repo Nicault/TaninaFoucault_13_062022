@@ -1,10 +1,21 @@
 import { useSelector } from 'react-redux'
-// import { store } from '../../../../redux/store'
+import styled from 'styled-components'
 
 function ErrorMessage() {
-  // const state = store.getState()
+  //@ts-ignore
   const error = useSelector((state) => state.user.message)
-  return <div>{error !== 'User successfully logged in' && error}</div>
+  console.log(error)
+  return (
+    <Wrapper>
+      {error === 'Error: User not found!' && <div>{error}</div>}
+      {error === 'Error: Password is invalid' && <div>{error}</div>}
+    </Wrapper>
+  )
 }
 
 export default ErrorMessage
+
+const Wrapper = styled.div`
+  color: red;
+  padding-top: 20px;
+`

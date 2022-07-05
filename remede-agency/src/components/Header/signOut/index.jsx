@@ -10,20 +10,35 @@ import {
 
 function SignOut() {
   const dispatch = useDispatch()
+  //@ts-ignore
   const rememberMe = useSelector((state) => state.user.rememberMe)
+  //@ts-ignore
+  const firstName = useSelector((state) => state.user.user.firstName)
 
   function signOut() {
     dispatch({ type: 'isAuthenticate', payload: { bool: false } })
     if (!rememberMe) {
-      dispatch({ type: 'fillEmail', payload: { email: null } })
-      dispatch({ type: 'fillPassword', payload: { password: null } })
+      dispatch({ type: 'fillEmail', payload: { email: '' } })
+      dispatch({ type: 'fillPassword', payload: { password: '' } })
+      dispatch({
+        type: 'fillEditedFirstName',
+        payload: { editedFirstName: '' },
+      })
+      dispatch({
+        type: 'fillEditedLastName',
+        payload: { editedLastName: '' },
+      })
+      dispatch({
+        type: 'updateUser',
+        payload: { id: '', firstName: '', lastName: '' },
+      })
     }
   }
   return (
     <div>
       <Link className="main-nav-item" to="/user">
         <FontAwesomeIcon icon={faCircleUser} />
-        Tony
+        {firstName}
       </Link>
       <Link className="main-nav-item" to="/" onClick={signOut}>
         <FontAwesomeIcon icon={faRightFromBracket} />

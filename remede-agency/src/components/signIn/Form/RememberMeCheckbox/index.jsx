@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 
 function RememberMeCheckbox() {
+  //@ts-ignore
   const rememberMe = useSelector((state) => state.user.rememberMe)
 
   const dispatch = useDispatch()

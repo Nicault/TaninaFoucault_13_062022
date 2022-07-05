@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux/es/exports'
 function PasswordInput() {
   const dispatch = useDispatch()
 
+  //@ts-ignore
   const password = useSelector((state) => state.user.password)
+  //@ts-ignore
   const token = useSelector((state) => state.user.token)
 
-  let typedPassword
+  let typedPassword = ''
   const isRemembered = () => {
     if (token) return (typedPassword = password)
   }

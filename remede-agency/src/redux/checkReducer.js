@@ -1,11 +1,4 @@
 import produce from 'immer'
-import {
-  authenticationState,
-  fillMessageAction,
-  getToken,
-  updateStatus,
-} from './userReducer'
-// import { store } from './store'
 
 const initialState = {
   status: 'void',
@@ -63,50 +56,4 @@ export default function checkReducer(state = initialState, action) {
         return state
     }
   })
-}
-
-export async function fetchOrUpdateData(store) {
-  const state = store.getState()
-  const status = store.getState().check.status
-
-  if (status === 'pending' || status === 'updating') {
-    return
-  }
-
-  store.dispatch(checkFetching())
-  try {
-    const response = await fetch('http://localhost:3001/api/v1/user/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        // email: 'tony@stark.com',
-        // password: 'password123',
-        email: state.user.email,
-        password: state.user.password,
-        token: state.user.token,
-      }),
-    })
-    const data = await response.json()
-    console.log(data)
-    store.dispatch(checkResolved(data))
-    store.dispatch(fillMessageAction(data.message))
-    store.dispatch(updateStatus(data.status))
-
-    if (data.status === 200) {
-      store.dispatch(authenticationState(true))
-      if (state.user.rememberMe) {
-        store.dispatch(getToken(data.body.token))
-      }
-    }
-    if (state.user.token) {
-      store.dispatch(authenticationState(true))
-    }
-  } catch (error) {
-    console.log(error)
-    store.dispatch(checkRejected(error))
-    store.dispatch(authenticationState(false))
-  }
 }

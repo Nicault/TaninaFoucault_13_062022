@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from 'react-redux/es/exports'
 
 function EmailInput() {
   const dispatch = useDispatch()
+  //@ts-ignore
   const email = useSelector((state) => state.user.email)
+  //@ts-ignore
   const token = useSelector((state) => state.user.token)
 
-  let typedEmail
+  let typedEmail = ''
   const isRemembered = () => {
     if (token) return (typedEmail = email)
   }

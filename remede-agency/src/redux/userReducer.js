@@ -1,21 +1,21 @@
 import produce from 'immer'
 
 const initialState = {
-  email: null,
-  password: null,
-  token: null,
+  email: '',
+  password: '',
+  token: '',
   rememberMe: false,
   isAuthenticated: false,
   status: 0,
-  message: null,
-}
-
-export const updateStatus = (status) => ({
-  type: 'updateStatus',
-  payload: {
-    status: status,
+  message: '',
+  user: {
+    id: '',
+    firstName: '',
+    lastName: '',
   },
-})
+  editedFirstName: '',
+  editedLastName: '',
+}
 
 export const fillEmailAction = (email) => ({
   type: 'fillEmail',
@@ -27,9 +27,9 @@ export const fillPasswordAction = (password) => ({
   payload: { password: password },
 })
 
-export const fillMessageAction = (message) => ({
-  type: 'fillMessage',
-  payload: { message: message },
+export const getToken = (token) => ({
+  type: 'getToken',
+  payload: { token: token },
 })
 
 export const selectRememberMeAction = (rememberMe) => ({
@@ -42,46 +42,61 @@ export const authenticationState = (bool) => ({
   payload: { bool: bool },
 })
 
-export const getToken = (token) => ({
-  type: 'getToken',
-  payload: { token: token },
+export const updateStatus = (status) => ({
+  type: 'updateStatus',
+  payload: {
+    status: status,
+  },
+})
+
+export const fillMessageAction = (message) => ({
+  type: 'fillMessage',
+  payload: { message: message },
+})
+
+export const updateUserAction = (id, firstName, lastName) => ({
+  type: 'updateUser',
+  payload: {
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+  },
+})
+
+export const fillEditedFirstNameAction = (editedFirstName) => ({
+  type: 'fillEditedFirstName',
+  payload: { editedFirstName: editedFirstName },
+})
+
+export const fillEditedLastNameAction = (editedLastName) => ({
+  type: 'fillEditedLastName',
+  payload: { editedLastName: editedLastName },
 })
 
 export default function userReducer(state = initialState, action) {
-  if (action.type === 'selectRememberMe') {
-    return produce(state, (draft) => {
-      const rememberMe = action.payload.rememberMe
-      draft.rememberMe = rememberMe
-    })
-    // return {
-    //   ...state,
-    //   rememberMe: !state.rememberMe,
-    // }
-  }
-
-  if (action.type === 'updateStatus') {
-    const status = action.payload.status
-    return {
-      ...state,
-      status: status,
-    }
-  }
-
   if (action.type === 'fillEmail') {
     const email = action.payload.email
     return { ...state, email: email }
   }
+
   if (action.type === 'fillPassword') {
     const password = action.payload.password
     return { ...state, password: password }
   }
 
-  if (action.type === 'fillMessage') {
-    const message = action.payload.message
+  if (action.type === 'getToken') {
+    const token = action.payload.token
     return {
       ...state,
-      message: message,
+      token: token,
     }
+  }
+
+  if (action.type === 'selectRememberMe') {
+    const rememberMe = action.payload.rememberMe
+    return produce(state, (draft) => {
+      draft.rememberMe = rememberMe
+    })
   }
 
   if (action.type === 'isAuthenticate') {
@@ -92,12 +107,45 @@ export default function userReducer(state = initialState, action) {
     }
   }
 
-  if (action.type === 'getToken') {
-    const token = action.payload.token
+  if (action.type === 'updateStatus') {
+    const status = action.payload.status
     return {
       ...state,
-      token: token,
+      status: status,
     }
+  }
+
+  if (action.type === 'fillMessage') {
+    const message = action.payload.message
+    return {
+      ...state,
+      message: message,
+    }
+  }
+
+  if (action.type === 'updateUser') {
+    const id = action.payload.id
+    const firstName = action.payload.firstName
+    const lastName = action.payload.lastName
+    return produce(state, (draft) => {
+      draft.user.id = id
+      draft.user.firstName = firstName
+      draft.user.lastName = lastName
+    })
+  }
+
+  if (action.type === 'fillEditedFirstName') {
+    const editedFirstName = action.payload.editedFirstName
+    return produce(state, (draft) => {
+      draft.editedFirstName = editedFirstName
+    })
+  }
+
+  if (action.type === 'fillEditedLastName') {
+    const editedLastName = action.payload.editedLastName
+    return produce(state, (draft) => {
+      draft.editedLastName = editedLastName
+    })
   }
 
   return state
