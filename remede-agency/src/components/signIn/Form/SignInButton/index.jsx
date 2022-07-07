@@ -34,7 +34,9 @@ function SignInButton() {
   return (
     <button
       className="sign-in-button"
-      onClick={() => {
+      onClick={(e) => {
+        e.preventDefault()
+        console.log('click')
         fetchOrUpdateData(store)
       }}
     >
