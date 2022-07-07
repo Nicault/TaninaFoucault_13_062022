@@ -1,5 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 
+/**
+ * Remember me checkbox component.
+ * Updates the rememeberMe state.
+ *
+ * @component
+ * @example
+ * return (
+ *   <RememberMeCheckbox />
+ * )
+ */
+
 function RememberMeCheckbox() {
   //@ts-ignore
   const rememberMe = useSelector((state) => state.user.rememberMe)

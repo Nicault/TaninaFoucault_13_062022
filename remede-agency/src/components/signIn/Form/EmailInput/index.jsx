@@ -1,17 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 
+/**
+ * Email input component.
+ * Updates the email state.
+ *
+ * @component
+ * @example
+ * return (
+ *   <EmailInput />
+ * )
+ */
+
 function EmailInput() {
   const dispatch = useDispatch()
   //@ts-ignore
   const email = useSelector((state) => state.user.email)
   //@ts-ignore
-  const token = useSelector((state) => state.user.token)
+  // const token = useSelector((state) => state.user.token)
 
-  let typedEmail = ''
-  const isRemembered = () => {
-    if (token) return (typedEmail = email)
-  }
-  isRemembered()
+  // const [typedEmail, setTypedEmail] = useState('')
+
+  // const isRemembered = () => {
+  //   if (token) return setTypedEmail(email)
+  // }
+  // isRemembered()
 
   return (
     <div className="input-wrapper">
@@ -19,7 +31,7 @@ function EmailInput() {
       <input
         type="text"
         id="username"
-        value={typedEmail}
+        value={email}
         onChange={(e) => {
           dispatch({
             type: 'fillEmail',

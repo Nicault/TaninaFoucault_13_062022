@@ -1,5 +1,16 @@
 import Transaction from '../Transaction'
 
+/**
+ * Transactions list component.
+ * Displays the list of transactions
+ *
+ * @component
+ * @example
+ * return (
+ *   <TransactionsList />
+ * )
+ */
+
 function TransactionsList() {
   const bloc_list = [
     {

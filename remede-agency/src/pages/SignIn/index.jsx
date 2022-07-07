@@ -3,6 +3,17 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
 import Form from '../../components/signIn/Form'
 
+/**
+ * Sign in page component.
+ * Displays the sign in page.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Signin />
+ * )
+ */
+
 function SignIn() {
   return (
     <main className="main bg-dark">

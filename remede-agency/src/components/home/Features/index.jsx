@@ -2,6 +2,17 @@ import iconChat from '../../../assets/icon-chat.png'
 import iconMoney from '../../../assets/icon-money.png'
 import iconSecurity from '../../../assets/icon-security.png'
 
+/**
+ * Features component.
+ * Displays the company values.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Features />
+ * )
+ */
+
 function Features() {
   const bloc_list = [
     {

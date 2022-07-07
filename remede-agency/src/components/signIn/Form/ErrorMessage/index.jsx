@@ -1,6 +1,17 @@
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+/**
+ * Error message component.
+ * Updates the error message state.
+ *
+ * @component
+ * @example
+ * return (
+ *   <ErrorMessage />
+ * )
+ */
+
 function ErrorMessage() {
   //@ts-ignore
   const error = useSelector((state) => state.user.message)

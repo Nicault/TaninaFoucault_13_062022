@@ -4,6 +4,17 @@ import '../../../index.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ * Sign in button.
+ * Links to the sign in page on click.
+ *
+ * @component
+ * @example
+ * return (
+ *   <SignIn />
+ * )
+ */
+
 function SignIn() {
   return (
     <div>

@@ -10,6 +10,11 @@ import { checkFetching, checkResolved, checkRejected } from './checkReducer'
 
 fetcher.addServer('http://localhost:3001/api/v1')
 
+/**
+ * Checks the user authentication and updates the related datas.
+ * @param {object} store state of the thore when the function is called
+ */
+
 export async function fetchOrUpdateData(store) {
   const state = store.getState()
   const status = store.getState().check.status
@@ -33,10 +38,17 @@ export async function fetchOrUpdateData(store) {
     if (dataLogin.status === 200) {
       store.dispatch(getToken(dataLogin.body.token))
     }
-    if (state.user.token) {
+    if (store.getState().user.token) {
       fetcher.addBearer(dataLogin.body.token)
       const dataProfile = await fetcher.post('/user/profile')
 
+      // if (
+      //   dataProfile.status === 'pending' ||
+      //   dataProfile.status === 'updating'
+      // ) {
+      //   return
+      // }
+      // if (dataProfile.status === 200) {
       store.dispatch(authenticationState(true))
       store.dispatch(
         updateUserAction(
@@ -45,6 +57,7 @@ export async function fetchOrUpdateData(store) {
           dataProfile.body.lastName
         )
       )
+      // }
     }
   } catch (error) {
     console.log(error)
@@ -52,6 +65,11 @@ export async function fetchOrUpdateData(store) {
     store.dispatch(authenticationState(false))
   }
 }
+
+/**
+ * Updates first an last names on the API db.
+ * @param {object} store state of the thore when the function is called
+ */
 
 export async function updateUserData(store) {
   const state = store.getState()
@@ -64,7 +82,7 @@ export async function updateUserData(store) {
 
   function updateName(editedName, currentName) {
     if (editedName && editedName !== currentName) {
-      return editedName
+      return editedName.charAt(0).toUpperCase() + editedName.slice(1)
     } else {
       return currentName
     }

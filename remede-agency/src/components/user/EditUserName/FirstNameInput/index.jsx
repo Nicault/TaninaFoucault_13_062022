@@ -1,6 +1,17 @@
 import { useDispatch } from 'react-redux'
 import { store } from '../../../../redux/store'
 
+/**
+ * First name input component.
+ * Updates the edited first name state.
+ *
+ * @component
+ * @example
+ * return (
+ *   <FirstNameInput />
+ * )
+ */
+
 function FirstNameInput() {
   const dispatch = useDispatch()
   const firstName = store.getState().user.user.firstName

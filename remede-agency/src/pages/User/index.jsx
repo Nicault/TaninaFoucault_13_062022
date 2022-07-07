@@ -1,6 +1,18 @@
 import UserHeader from '../../components/user/UserHeader'
 import BankSection from '../../components/user/BankSection'
 
+/**
+ * User page component.
+ * Displays the user page.
+ * Fills the bank section list.
+ *
+ * @component
+ * @example
+ * return (
+ *   <User />
+ * )
+ */
+
 function User() {
   const bloc_list = [
     {

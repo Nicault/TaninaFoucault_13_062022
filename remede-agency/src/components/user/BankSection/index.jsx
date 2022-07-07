@@ -1,5 +1,20 @@
 import PropTypes from 'prop-types'
 
+/**
+ * Bank section component.
+ * Format bank section component
+ *
+ * @prop     {string}   title          Title of the account    
+ * @prop     {string}   amount         Amount on the account
+ * @prop     {string}   description    Description of the acount
+ * 
+ * @component
+ * @example
+ * return (
+ *   <BankSection />
+ * )
+ */
+
 function BankSection({ title, amount, description }) {
   return (
     <section className="account">

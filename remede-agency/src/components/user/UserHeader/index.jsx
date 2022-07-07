@@ -3,6 +3,19 @@ import { useSelector } from 'react-redux/es/hooks/useSelector'
 
 import { useState } from 'react'
 
+/**
+ * User header component.
+ * Displays the user header component.
+ * Fills the first and last names areas with the store.
+ * Displays or not the edit user name component.
+ *
+ * @component
+ * @example
+ * return (
+ *   <UserHeader />
+ * )
+ */
+
 function UserHeader() {
   //@ts-ignore
   const firstName = useSelector((state) => state.user.user.firstName)

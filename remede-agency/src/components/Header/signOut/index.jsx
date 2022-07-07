@@ -8,6 +8,18 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ * Sign out button.
+ * Links to the home page on click,
+ * resets user informations if he didnt select Remember me option
+ *
+ * @component
+ * @example
+ * return (
+ *   <SignOut />
+ * )
+ */
+
 function SignOut() {
   const dispatch = useDispatch()
   //@ts-ignore

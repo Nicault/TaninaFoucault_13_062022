@@ -1,5 +1,16 @@
 import '../../index.css'
 
+/**
+ * Footer component.
+ * Shows the copyright.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Footer />
+ * )
+ */
+
 function Footer() {
   return (
     <footer className="footer">

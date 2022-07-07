@@ -8,6 +8,17 @@ import { useSelector } from 'react-redux'
 import SignIn from './signIn'
 import SignOut from './signOut'
 
+/**
+ * Header component.
+ * Shows the navbar to login or logout.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Header />
+ * )
+ */
+
 function Header() {
   //@ts-ignore
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated)

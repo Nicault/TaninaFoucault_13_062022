@@ -5,6 +5,22 @@ import { updateUserData } from '../../../redux/actions'
 import FirstNameInput from './FirstNameInput'
 import LastNameInput from './LastNameInput'
 
+/**
+ * Edit user name component.
+ * Updates the first and last names states.
+ * Updates the first and last name on the API.
+ * Updates state of the component
+ *
+ * @prop     {bool}       isShown            State of the component
+ * @prop     {function}   setIsShown         Function that updates this state
+ *
+ * @component
+ * @example
+ * return (
+ *   <EditUserName />
+ * )
+ */
+
 function EditUserName({ isShown, setIsShown }) {
   const dispatch = useDispatch()
 

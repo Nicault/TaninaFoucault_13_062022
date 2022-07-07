@@ -1,8 +1,21 @@
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 import { store } from '../../../../redux/store'
 import { fetchOrUpdateData } from '../../../../redux/actions'
+
+/**
+ * Sign in button component.
+ * Checks the authentication on click.
+ * If user is authenticated, navigates to user page
+ *
+ * @component
+ * @example
+ * return (
+ *   <SignInButton />
+ * )
+ */
 
 function SignInButton() {
   const navigate = useNavigate()
@@ -11,9 +24,13 @@ function SignInButton() {
   //@ts-ignore
   const userId = useSelector((state) => state.user.user.id)
 
-  if (isAuthenticated) {
-    navigate(`/user/${userId}`)
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(`/user/${userId}`)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated])
+
   return (
     <button
       className="sign-in-button"
