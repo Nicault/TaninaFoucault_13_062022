@@ -1,6 +1,8 @@
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-
+import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { Navigate } from 'react-router-dom'
 import Form from '../../components/signIn/Form'
 
 /**
@@ -15,6 +17,12 @@ import Form from '../../components/signIn/Form'
  */
 
 function SignIn() {
+  const isAuthenticated = useSelector(
+    //@ts-ignore
+    (state) => state.user.user.isAuthenticated
+  )
+  if (isAuthenticated) return <Navigate to="/user" />
+
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">

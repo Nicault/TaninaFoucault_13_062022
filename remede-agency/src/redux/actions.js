@@ -12,7 +12,7 @@ fetcher.addServer('http://localhost:3001/api/v1')
 
 /**
  * Checks the user authentication and updates the related datas.
- * @param {object} store state of the thore when the function is called
+ * @param {object} store state of the store when the function is called
  */
 
 export async function fetchOrUpdateData(store) {
@@ -28,42 +28,45 @@ export async function fetchOrUpdateData(store) {
     const dataLogin = await fetcher.post('/user/login', {
       email: state.user.email,
       password: state.user.password,
-      // token: state.user.token,
     })
 
-    store.dispatch(checkResolved(dataLogin))
-    store.dispatch(fillMessageAction(dataLogin.message))
-    store.dispatch(updateStatus(dataLogin.status))
+    updateSignInStatus(store, dataLogin)
+    store.dispatch(authenticationState(true))
 
-    if (dataLogin.status === 200) {
-      store.dispatch(getToken(dataLogin.body.token))
-    }
-    if (store.getState().user.token) {
-      fetcher.addBearer(dataLogin.body.token)
-      const dataProfile = await fetcher.post('/user/profile')
-
-      // if (
-      //   dataProfile.status === 'pending' ||
-      //   dataProfile.status === 'updating'
-      // ) {
-      //   return
-      // }
-      // if (dataProfile.status === 200) {
-      store.dispatch(authenticationState(true))
-      store.dispatch(
-        updateUserAction(
-          dataProfile.body.id,
-          dataProfile.body.firstName,
-          dataProfile.body.lastName
-        )
-      )
-      // }
-    }
+    getProfile(store)
   } catch (error) {
-    console.log(error)
-    store.dispatch(checkRejected(error))
-    store.dispatch(authenticationState(false))
+    errorOnAuthentication(store, error)
   }
+}
+
+export async function getProfile(store) {
+  try {
+    fetcher.addBearer(getSavedToken())
+    const dataProfile = await fetcher.post('/user/profile')
+
+    store.dispatch(
+      updateUserAction(
+        dataProfile.body.id,
+        dataProfile.body.firstName,
+        dataProfile.body.lastName
+      )
+    )
+    // console.log(localStorage)
+  } catch (error) {
+    errorOnAuthentication(store, error)
+  }
+}
+
+/**
+ * Updates sign in status
+ *
+ * @param {object}  store    store
+ * @param {object}  error    caught error
+ */
+function errorOnAuthentication(store, error) {
+  console.log(error)
+  store.dispatch(checkRejected(error))
+  store.dispatch(authenticationState(false))
 }
 
 /**
@@ -107,4 +110,87 @@ export async function updateUserData(store) {
   } catch (error) {
     console.log(error)
   }
+}
+
+/**
+ * Saves token either in session or local storage
+ * depending on the remember me option
+ *
+ * @param {String}  token       value of the token
+ * @param {boolean} rememberMe  value of the remember me option
+ */
+export function saveToken(token, rememberMe) {
+  rememberMe
+    ? localStorage.setItem('token', token)
+    : sessionStorage.setItem('token', token)
+
+  fetcher.addBearer(token)
+}
+
+/**
+ * Gets saved token either in session or local storage
+ *
+ * @return  {String}  token if there is one, otherwise returns ""
+ */
+export function getSavedToken() {
+  if (sessionStorage.getItem('token') !== null)
+    return sessionStorage.getItem('token')
+  if (localStorage.getItem('token') !== null)
+    return localStorage.getItem('token')
+  return ''
+}
+
+/**
+ * Gets Remember Me status.
+ * False if token is in session storage
+ * True if token is in local storage
+ *
+ * @return  {Boolean}  Remember Me status
+ */
+
+export function getSavedRememberMe() {
+  if (sessionStorage.getItem('token') !== null) return false
+  if (localStorage.getItem('token') !== null) return true
+  return false
+}
+
+/**
+ * Updates sign in status
+ *
+ * @param {object}  store       store
+ * @param {object}  dataLogin   API login datas
+ */
+function updateSignInStatus(store, dataLogin) {
+  store.dispatch(checkResolved(dataLogin))
+  store.dispatch(fillMessageAction(dataLogin.message))
+  store.dispatch(updateStatus(dataLogin.status))
+
+  store.dispatch(getToken(dataLogin.body.token))
+  saveToken(store.getState().user.token, store.getState().user.rememberMe)
+}
+
+export function signOut(store) {
+  localStorage.clear()
+  sessionStorage.clear()
+
+  store.dispatch({ type: 'isAuthenticate', payload: { bool: false } })
+  store.dispatch({ type: 'fillEmail', payload: { email: '' } })
+  store.dispatch({ type: 'fillPassword', payload: { password: '' } })
+  store.dispatch({
+    type: 'fillEditedFirstName',
+    payload: { editedFirstName: '' },
+  })
+  store.dispatch({
+    type: 'fillEditedLastName',
+    payload: { editedLastName: '' },
+  })
+  store.dispatch({
+    type: 'updateUser',
+    payload: { id: '', firstName: '', lastName: '' },
+  })
+
+  store.dispatch({
+    type: 'getToken',
+    payload: { token: '' },
+  })
 }

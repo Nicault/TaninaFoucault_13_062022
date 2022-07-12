@@ -1,9 +1,10 @@
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
 import { store } from '../../../../redux/store'
-import { fetchOrUpdateData } from '../../../../redux/actions'
+import { fetchOrUpdateData, getProfile } from '../../../../redux/actions'
 
 /**
  * Sign in button component.
@@ -21,12 +22,10 @@ function SignInButton() {
   const navigate = useNavigate()
   //@ts-ignore
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated)
-  //@ts-ignore
-  const userId = useSelector((state) => state.user.user.id)
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(`/user/${userId}`)
+      navigate(`/user`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated])
@@ -36,7 +35,7 @@ function SignInButton() {
       className="sign-in-button"
       onClick={(e) => {
         e.preventDefault()
-        console.log('click')
+        // console.log('click')
         fetchOrUpdateData(store)
       }}
     >

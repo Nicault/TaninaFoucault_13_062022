@@ -1,3 +1,4 @@
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
 
 /**
@@ -23,7 +24,7 @@ function RememberMeCheckbox() {
         type="checkbox"
         id="remember-me"
         checked={rememberMe}
-        onChange={() => {
+        onClick={() => {
           dispatch({
             type: 'selectRememberMe',
             payload: { rememberMe: !rememberMe },

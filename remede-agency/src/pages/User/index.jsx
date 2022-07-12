@@ -1,5 +1,12 @@
+import React from 'react'
 import UserHeader from '../../components/user/UserHeader'
 import BankSection from '../../components/user/BankSection'
+// import { useDispatch } from 'react-redux/es/exports'
+import { useEffect } from 'react'
+import { store } from '../../redux/store'
+import { getProfile } from '../../redux/actions'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux/es/exports'
 
 /**
  * User page component.
@@ -14,6 +21,24 @@ import BankSection from '../../components/user/BankSection'
  */
 
 function User() {
+  // sessionStorage.clear()
+  console.log('làààààààààààààààààà')
+  console.log(localStorage)
+
+  const navigate = useNavigate()
+
+  //@ts-ignore
+  const token = useSelector((state) => state.user.token)
+
+  useEffect(() => {
+    if (!token) {
+      navigate(`/signIn`)
+    } else {
+      getProfile(store)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
+
   const bloc_list = [
     {
       title: 'Argent Bank Checking (x8349)',

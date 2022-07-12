@@ -1,11 +1,15 @@
 import produce from 'immer'
+import { getSavedToken, getSavedRememberMe } from './actions'
+
+const savedToken = getSavedToken()
+const savedRememberMe = getSavedRememberMe()
 
 const initialState = {
   email: '',
   password: '',
-  token: '',
-  rememberMe: false,
-  isAuthenticated: false,
+  token: savedToken,
+  rememberMe: savedRememberMe,
+  isAuthenticated: savedToken !== '',
   status: 0,
   message: '',
   user: {

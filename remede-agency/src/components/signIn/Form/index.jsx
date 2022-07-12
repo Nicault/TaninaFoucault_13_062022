@@ -1,3 +1,4 @@
+import React from 'react'
 import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import RememberMeCheckbox from './RememberMeCheckbox'
