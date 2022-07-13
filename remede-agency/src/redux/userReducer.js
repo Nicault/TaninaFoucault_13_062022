@@ -21,6 +21,8 @@ const initialState = {
   editedLastName: '',
 }
 
+// ACTIONS CREATORS
+
 export const fillEmailAction = (email) => ({
   type: 'fillEmail',
   payload: { email: email },
@@ -76,6 +78,8 @@ export const fillEditedLastNameAction = (editedLastName) => ({
   type: 'fillEditedLastName',
   payload: { editedLastName: editedLastName },
 })
+
+// REDUCER
 
 export default function userReducer(state = initialState, action) {
   if (action.type === 'fillEmail') {

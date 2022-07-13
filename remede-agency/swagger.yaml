@@ -138,7 +138,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /account/transaction:
+  /account/:accountId/transaction_current_month:
     get:
       security:
         - Bearer: []
@@ -152,12 +152,7 @@ paths:
           description: Attach Bearer JWT token
           required: true
           type: string
-        - in: body
-          name: body
-          description: Fetches user's account transactions
-          required: true
-          schema:
-            $ref: '#/definitions/Transactions'
+
       produces:
         - application/json
       responses:
@@ -169,6 +164,8 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
+  /account/:accountId/transaction:
     put:
       security:
         - Bearer: []

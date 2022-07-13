@@ -21,10 +21,6 @@ import { useSelector } from 'react-redux/es/exports'
  */
 
 function User() {
-  // sessionStorage.clear()
-  console.log('làààààààààààààààààà')
-  console.log(localStorage)
-
   const navigate = useNavigate()
 
   //@ts-ignore

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
 import { store } from '../../../../redux/store'
-import { fetchOrUpdateData, getProfile } from '../../../../redux/actions'
+import { fetchOrUpdateData } from '../../../../redux/actions'
 
 /**
  * Sign in button component.
@@ -35,7 +35,6 @@ function SignInButton() {
       className="sign-in-button"
       onClick={(e) => {
         e.preventDefault()
-        // console.log('click')
         fetchOrUpdateData(store)
       }}
     >

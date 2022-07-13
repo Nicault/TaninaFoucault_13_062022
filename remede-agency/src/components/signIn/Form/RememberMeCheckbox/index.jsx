@@ -24,7 +24,7 @@ function RememberMeCheckbox() {
         type="checkbox"
         id="remember-me"
         checked={rememberMe}
-        onClick={() => {
+        onChange={() => {
           dispatch({
             type: 'selectRememberMe',
             payload: { rememberMe: !rememberMe },

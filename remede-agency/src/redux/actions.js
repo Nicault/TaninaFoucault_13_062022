@@ -133,10 +133,14 @@ export function saveToken(token, rememberMe) {
  * @return  {String}  token if there is one, otherwise returns ""
  */
 export function getSavedToken() {
-  if (sessionStorage.getItem('token') !== null)
+  if (sessionStorage.getItem('token') !== null) {
+    //@ts-ignore
     return sessionStorage.getItem('token')
-  if (localStorage.getItem('token') !== null)
+  }
+  if (localStorage.getItem('token') !== null) {
+    //@ts-ignore
     return localStorage.getItem('token')
+  }
   return ''
 }
 
@@ -169,6 +173,11 @@ function updateSignInStatus(store, dataLogin) {
   saveToken(store.getState().user.token, store.getState().user.rememberMe)
 }
 
+/**
+ * Signs out
+ *
+ * @param {object}  store    store
+ */
 export function signOut(store) {
   localStorage.clear()
   sessionStorage.clear()
